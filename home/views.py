@@ -7,11 +7,13 @@ from django.views import View
 
 # TODO: Refact to use threads soon as possible
 def home(request):
+    template_name = 'home/home.html'
     # import pdb; pdb.set_trace()   # TODO: modo hard de debugar
-    value1 = 10
-    value2 = 20
-    c = value1 * value2
-    return render(request, 'home.html', {'result': c})
+    # value1, value2 = 10, 20
+    # c = value1 * value2
+    # context = {}
+    # context['result'] = c
+    return render(request, template_name) #, context)
 
 
 # FIXME: Fix bug...
@@ -23,6 +25,7 @@ def my_logout(request):
 # CLASS BASED VIEWS
 # Introdução e TemplateViews
 class HomePageView(TemplateView):
+
     template_name = 'home2.html'
 
     def get_context_data(self, **kwargs):
@@ -30,8 +33,10 @@ class HomePageView(TemplateView):
         context['minha_variavel'] = "Ola, seja bem vindo ao curso de Django avancado"
         return context
 
+
 # View, a mais simples e básica de todas
 class MyView(View):
+
     def get(self, request, *args, **kwargs):
         return render(request, 'home3.html')
 
