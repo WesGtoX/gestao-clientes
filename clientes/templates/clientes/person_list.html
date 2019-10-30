@@ -11,7 +11,6 @@
     {% for person in object_list %}
         <a href="{% url 'person_list_cbv' person.id %}">{{ person }}</a><br>
     {% endfor %}
-
     <a href="{% url 'person_create_cbv'  %}">Novo</a>
 </body>
 </html>

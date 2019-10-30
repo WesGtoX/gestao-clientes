@@ -1,16 +1,10 @@
 {% extends 'base.html' %}
 
-
 {% block title %} Seja bem vindo {% endblock %}
 
 {% block main %}
-
-
     <div class="row">
-        <div class="col">
-
-        </div>
-
+        <div class="col"></div>
         <div class="col-6">
             <h1>Seja bem vindo a home3</h1>
             {{ minha_variavel }}
@@ -27,12 +21,10 @@
             {% endif %}
         </div>
     </div>
-
-<form method="post">
-    {% csrf_token %}
-    <button type="submit">Enviar</button>
-</form>
-
+    <form method="post">
+        {% csrf_token %}
+        <button type="submit">Enviar</button>
+    </form>
 {% endblock %}
 
 {% block footer %}
