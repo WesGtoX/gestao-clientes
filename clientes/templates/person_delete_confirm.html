@@ -9,3 +9,7 @@
         <button type="submit" class="btn btn-danger">Delete</button>
     </form>
 {% endblock %}
+
+{% block footer %}
+    {% include 'footer.html' with minha_var="Meu texto teste" %}    {# Para versoes mais antigas do Django #}
+{% endblock %}

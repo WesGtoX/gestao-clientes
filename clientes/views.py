@@ -15,7 +15,8 @@ from django.urls import reverse_lazy
 @login_required
 def persons_list(request):
     persons = Person.objects.all()
-    context = {'persons': persons}
+    context = {}
+    context['persons'] = persons
     return render(request, 'person.html', context)
 
 

@@ -1,0 +1,15 @@
+{% load my_tags %}
+{% load filters %}
+
+<footer class="footer">
+    <div class="container">
+        <span class="text-muted footer-message">{% footer_message %}</span>
+
+        <div id="hora-servidor">
+            {# Tags created #}
+            {% current_time "%Y-%m-%d %I:%M %p" as the_time %}
+            {{ the_time }}
+        </div>
+
+    </div>
+</footer>
