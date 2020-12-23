@@ -1,19 +1,21 @@
+from django.http import HttpResponse
+
 from django.shortcuts import render, redirect
 from django.contrib.auth import logout
-from django.views.generic.base import TemplateView
-from django.http import HttpResponse
+
 from django.views import View
+from django.views.generic.base import TemplateView
 
 
 # TODO: Refact to use threads soon as possible
 def home(request):
     template_name = 'home/home.html'
-    # import pdb; pdb.set_trace()   # TODO: modo hard de debugar
+    # import pdb; pdb.set_trace()  # TODO: modo hard de debugar
     # value1, value2 = 10, 20
     # c = value1 * value2
     # context = {}
     # context['result'] = c
-    return render(request, template_name) #, context)
+    return render(request, template_name)  # , context)
 
 
 # FIXME: Fix bug...
@@ -30,7 +32,7 @@ class HomePageView(TemplateView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['minha_variavel'] = "Ola, seja bem vindo ao curso de Django avancado"
+        context['minha_variavel'] = 'Ola, seja bem vindo ao curso de Django avancado'
         return context
 
 

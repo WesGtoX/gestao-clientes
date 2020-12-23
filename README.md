@@ -16,7 +16,6 @@
   <img alt="License" src="https://img.shields.io/github/license/wesgtox/gestao_clientes?style=plastic" />
 </p>
 
-
 Client management project created in Django Framework.
 
 Made in the "[Django 2.0 avancado](https://www.udemy.com/course/django-avancado-100-aulas/)" course by [Gregory Pacheco](https://www.udemy.com/user/gpzimpacheco/)
