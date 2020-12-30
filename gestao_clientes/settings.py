@@ -23,7 +23,10 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    # installed apps
     'bootstrapform',
+    'django_extensions',
+    # my apps
     'clientes',
     'home',
 ]

@@ -1,7 +1,6 @@
 import datetime
 from django import template
 
-
 register = template.Library()
 
 
@@ -12,4 +11,4 @@ def current_time(context, format_string):
 
 @register.simple_tag
 def footer_message():
-    return 'Desenvolvimento web com Django 2.2.6'
+    return 'Desenvolvimento Web com Django 2.2.6'
