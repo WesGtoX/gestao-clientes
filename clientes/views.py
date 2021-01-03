@@ -7,7 +7,7 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
 from django.views.generic import View, list, detail, edit
 
-from clientes.models import Person, Produto
+from clientes.models import Person, Produto, Venda
 from clientes.forms import PersonForm
 
 
@@ -69,6 +69,7 @@ class PersonDetail(detail.DetailView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['now'] = timezone.now()
+        context['vendas'] = Venda.objects.filter(pessoa_id=self.object.id)
         return context
 
 

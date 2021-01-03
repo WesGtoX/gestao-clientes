@@ -7,12 +7,22 @@
     <title>Detalhes de Pessoas</title>
 </head>
 <body>
-    <h1>Detalhes</h1>
-    <p>
-        {{ object.first_name }} {{ object.last_name }}<br />
-        {{ object.age }}<br />
-        {{ object.bio }}<br />
-    </p>
+    <h1>Person Details</h1>
+    Nome: {{ object.first_name }}<br />
+    Sobrenome: {{ object.last_name }}<br />
+    Documento: {{ object.doc }}<br />
+
+    <h2>Vendas</h2>
+    {% for venda in vendas %}
+    <p>Venda id: {{ venda.id }}</p>
+    <h3>Lista de Produtos</h3>
+    <ul>
+        {% for produto in venda.produtos.all %}
+        <li>{{ produto.id }} - {{ produto.descricao }}</li>
+        {% endfor %}
+    </ul>
+    {% endfor %}
+
     <p>Date: {{ now|date }}</p>
     <a href="{% url 'person_update_cbv' object.id %}">Update</a>
     <a href="{% url 'person_delete_cbv' object.id %}">Delete</a>
