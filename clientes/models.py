@@ -1,4 +1,6 @@
 from django.db import models
+from django.db.models.signals import m2m_changed
+from django.dispatch import receiver
 
 
 class Documento(models.Model):
@@ -41,5 +43,19 @@ class Venda(models.Model):
     pessoa = models.ForeignKey(Person, null=True, blank=True, on_delete=models.PROTECT)
     produtos = models.ManyToManyField(Produto, blank=True)
 
+    def get_total(self):
+        total = 0
+        for produto in self.produtos.all():
+            total += produto.preco
+
+        return (total - self.desconto) - self.impostos
+
     def __str__(self):
         return self.numero
+
+
+@receiver(m2m_changed, sender=Venda.produtos.through)
+def update_vendas_total(sender, instance, **kwargs):
+    instance.valor = instance.get_total()
+    instance.save()
+    # Venda.objects.filter(id=instance.id).update(total=total)
