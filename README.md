@@ -124,7 +124,26 @@ Made in the "[Django 2.0 avancado](https://www.udemy.com/course/django-avancado-
 This project was developed with the following technologies:
 
 - [Python](https://www.python.org/)
+- [Poetry](https://python-poetry.org/)
 - [Django](https://www.djangoproject.com/)
+
+
+### Install and Run
+
+1. Clone the repository:
+```bash
+git clone https://github.com/wesgtox/gestao_clientes.git
+```
+2. Install the dependencies:
+```bash
+poetry install
+```
+3. Run:
+```bash
+poetry shell
+python manage.py migrate
+python manage.py runserver
+```
 
 
 ## License
