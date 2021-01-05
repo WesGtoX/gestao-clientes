@@ -37,11 +37,12 @@ class Produto(models.Model):
 
 class Venda(models.Model):
     numero = models.CharField(max_length=7)
-    valor = models.DecimalField(max_digits=5, decimal_places=2)
+    valor = models.DecimalField(max_digits=5, decimal_places=2, default=0)
     desconto = models.DecimalField(max_digits=5, decimal_places=2)
     impostos = models.DecimalField(max_digits=5, decimal_places=2)
     pessoa = models.ForeignKey(Person, null=True, blank=True, on_delete=models.PROTECT)
     produtos = models.ManyToManyField(Produto, blank=True)
+    nfe_emitida = models.BooleanField(default=False)
 
     def get_total(self):
         total = 0
