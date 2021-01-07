@@ -1,13 +1,14 @@
 from django.urls import reverse_lazy
 from django.utils import timezone
 
-from django.http import HttpResponse
+
 from django.shortcuts import render, redirect, get_object_or_404
 
 from django.contrib.auth.decorators import login_required
-from django.views.generic import View, list, detail, edit
+from django.views.generic import list, detail, edit
 
-from clientes.models import Person, Produto, Venda
+from clientes.models import Person
+from vendas.models import Venda
 from clientes.forms import PersonForm
 
 
@@ -102,18 +103,3 @@ class PersonDelete(edit.DeleteView):
 
     def get_success_url(self):
         return reverse_lazy('person_list_cbv')
-
-
-# Bulk create
-class ProdutoBulk(View):
-
-    def get(self, request):
-        produtos = ['Banana', 'Maca', 'Limao', 'Laranja', 'Pera', 'Melancia']
-        list_produtos = []
-
-        for produto in produtos:
-            p = Produto(descricao=produto, preco=10)
-            list_produtos.append(p)
-
-        Produto.objects.bulk_create(list_produtos)
-        return HttpResponse('Funcionou')
