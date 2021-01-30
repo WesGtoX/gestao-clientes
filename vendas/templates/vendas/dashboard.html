@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+
+{% block main %}
+    <h1>Dashboard</h1>
+
+    <ul>
+        <li>Ticket Médio: R$ {{ media|floatformat:2 }}</li>
+        <li>Desconto Médio: R$ {{ media_dec|floatformat:2 }}</li>
+        <li>Pedido menor valor: R$ {{ min|floatformat:2 }}</li>
+        <li>Pedido maior valor: R$ {{ max|floatformat:2 }}</li>
+        <li>Número de pedidos: {{ num_ped }}</li>
+        <li>Número de pedidos com NF-e: {{ num_ped_nfe }}</li>
+    </ul>
+{% endblock %}
