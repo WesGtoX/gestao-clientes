@@ -1,10 +1,11 @@
+from django.http import HttpResponse
 from django.urls import reverse_lazy
 from django.utils import timezone
-
 
 from django.shortcuts import render, redirect, get_object_or_404
 
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
 from django.views.generic import list, detail, edit
 
 from clientes.models import Person
@@ -21,6 +22,9 @@ def persons_list(request):
 
 @login_required
 def persons_new(request):
+    if not request.user.has_perm('clientes.add_person'):
+        return HttpResponse('Não autorizado')
+
     form = PersonForm(request.POST or None, request.FILES or None)
 
     if form.is_valid():
@@ -57,13 +61,13 @@ def persons_delete(request, id):
 
 # CLASS BASED VIEW
 # ListView
-class PersonList(list.ListView):
+class PersonList(LoginRequiredMixin, list.ListView):
 
     model = Person  # lista de uma forma mais simples e limpa
 
 
 # DetailView
-class PersonDetail(detail.DetailView):
+class PersonDetail(LoginRequiredMixin, detail.DetailView):
 
     model = Person
 
@@ -95,9 +99,10 @@ class PersonUpdate(edit.UpdateView):
 
 
 # DeleteView
-class PersonDelete(edit.DeleteView):
+class PersonDelete(PermissionRequiredMixin, edit.DeleteView):
 
     model = Person
+    permission_required = ('clientes.deletar_clientes',)
     fields = ['first_name', 'last_name', 'age', 'salary', 'bio', 'photo']
     # success_url = reverse_lazy('person_list_cbv')
 

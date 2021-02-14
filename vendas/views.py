@@ -1,7 +1,8 @@
+from django.http import HttpResponse
 from django.shortcuts import render
 from django.contrib.auth.decorators import login_required
 from django.views import View
-from django.db.models import Min, Max, Avg, Count
+# from django.db.models import Min, Max, Avg, Count
 
 from vendas.models import Venda
 
@@ -13,7 +14,13 @@ def vendas_list(request):
     return render(request, 'venda.html', context)
 
 
-class Dashboard(View):
+class DashboardView(View):
+
+    def dispatch(self, request, *args, **kwargs):
+        if not request.user.has_perm('vendas.show_dashboard'):
+            return HttpResponse('Acesso negado, você precisa de permissão!')
+
+        return super().dispatch(request, *args, **kwargs)
 
     def get(self, request):
         context = {}
