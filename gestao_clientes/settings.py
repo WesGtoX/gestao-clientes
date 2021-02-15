@@ -126,6 +126,20 @@ STATICFILES_DIRS = [
 
 STATIC_URL = '/static/'
 
+
+# Email
+
+EMAIL_HOST = config('EMAIL_HOST', default=None)
+EMAIL_PORT = config('EMAIL_PORT', default=None)
+EMAIL_HOST_USER = config('EMAIL_HOST_USER', default=None)
+EMAIL_HOST_PASSWORD = config('EMAIL_HOST_PASSWORD', default=None)
+EMAIL_NAME = config('EMAIL_NAME', default=None)
+EMAIL_USE_TLS = config('EMAIL_USE_TLS', default=True)
+DEFAULT_FROM_EMAIL = f'{EMAIL_NAME} <{EMAIL_HOST_USER}>'
+
+
+# AWS
+#
 # AWS_ACCESS_KEY_ID = config('AWS_ACCESS_KEY_ID')
 # AWS_SECRET_ACCESS_KEY = config('AWS_SECRET_ACCESS_KEY')
 # AWS_STORAGE_BUCKET_NAME = 'gestao-clientes'
