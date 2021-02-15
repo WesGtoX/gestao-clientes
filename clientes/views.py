@@ -65,6 +65,18 @@ class PersonList(LoginRequiredMixin, list.ListView):
 
     model = Person  # lista de uma forma mais simples e limpa
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        first_access = self.request.session.get('fist_access', False)
+
+        if not first_access:
+            context['message'] = 'Sejá bem vindo ao seu primeiro acesso hoje!'
+            self.request.session['fist_access'] = True
+        else:
+            context['message'] = 'Você já acessou hoje!'
+
+        return context
+
 
 # DetailView
 class PersonDetail(LoginRequiredMixin, detail.DetailView):
