@@ -130,13 +130,20 @@ STATIC_URL = '/static/'
 
 # Email
 
+ADMINS_EMAIL = config('ADMINS', default=None)
+
+if ADMINS_EMAIL is not None:
+    ADMINS = [tuple(i.split(',')) for i in ADMINS_EMAIL.split(';')]
+
 EMAIL_HOST = config('EMAIL_HOST', default=None)
-EMAIL_PORT = config('EMAIL_PORT', default=None)
 EMAIL_HOST_USER = config('EMAIL_HOST_USER', default=None)
 EMAIL_HOST_PASSWORD = config('EMAIL_HOST_PASSWORD', default=None)
+EMAIL_PORT = config('EMAIL_PORT', default=None)
 EMAIL_NAME = config('EMAIL_NAME', default=None)
 EMAIL_USE_TLS = config('EMAIL_USE_TLS', default=True)
 DEFAULT_FROM_EMAIL = f'{EMAIL_NAME} <{EMAIL_HOST_USER}>'
+SERVER_EMAIL = EMAIL_HOST_USER
+EMAIL_SUBJECT_PREFIX = '[Gestão Clientes] '
 
 
 # AWS
