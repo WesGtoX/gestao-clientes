@@ -8,7 +8,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 # Quick-start development settings - unsuitable for production
 
-SECRET_KEY = config('SECRET_KEY')
+SECRET_KEY = config('SECRET_KEY', default='ARANDOMSECRETKEY')
 
 DEBUG = config('DEBUG', default=False, cast=bool)
 
@@ -135,13 +135,13 @@ ADMINS_EMAIL = config('ADMINS', default=None)
 if ADMINS_EMAIL is not None:
     ADMINS = [tuple(i.split(',')) for i in ADMINS_EMAIL.split(';')]
 
-EMAIL_HOST = config('EMAIL_HOST', default=None)
-EMAIL_HOST_USER = config('EMAIL_HOST_USER', default=None)
-EMAIL_HOST_PASSWORD = config('EMAIL_HOST_PASSWORD', default=None)
-EMAIL_PORT = config('EMAIL_PORT', default=None)
-EMAIL_NAME = config('EMAIL_NAME', default=None)
-EMAIL_USE_TLS = config('EMAIL_USE_TLS', default=True)
-DEFAULT_FROM_EMAIL = f'{EMAIL_NAME} <{EMAIL_HOST_USER}>'
+EMAIL_HOST = config('EMAIL_HOST', default='localhost')
+EMAIL_HOST_USER = config('EMAIL_HOST_USER', default='')
+EMAIL_HOST_PASSWORD = config('EMAIL_HOST_PASSWORD', default='')
+EMAIL_PORT = config('EMAIL_PORT', default=25, cast=int)
+EMAIL_FROM_NAME = config('EMAIL_FROM_NAME', default='Simplemooc')
+EMAIL_USE_TLS = config('EMAIL_USE_TLS', default=False, cast=bool)
+DEFAULT_FROM_EMAIL = f'{EMAIL_FROM_NAME} <{EMAIL_HOST_USER}>'
 SERVER_EMAIL = EMAIL_HOST_USER
 EMAIL_SUBJECT_PREFIX = '[Gestão Clientes] '
 
