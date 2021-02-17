@@ -12,7 +12,13 @@ SECRET_KEY = config('SECRET_KEY', default='ARANDOMSECRETKEY')
 
 DEBUG = config('DEBUG', default=False, cast=bool)
 
-ALLOWED_HOSTS = ['localhost', '127.0.0.1']
+ALLOWED_HOSTS = [
+    'localhost',
+    '127.0.0.1',
+    'gestao-clientes-wes.herokuapp.com',
+    'gestao-clientes.wesleymendes.com.br',
+    'www.gestao-clientes.wesleymendes.com.br'
+]
 
 INTERNAL_IPS = ['127.0.0.1']
 
