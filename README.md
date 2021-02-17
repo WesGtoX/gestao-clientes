@@ -1,5 +1,7 @@
 <h1 align="center">
   Client Management
+  <br />
+  <img alt="Gestão Clientes CI" src="https://github.com/WesGtoX/gestao-clientes/workflows/Gest%C3%A3o%20Clientes%20CI/badge.svg" />
 </h1>
 
 <p align="center">
