@@ -47,3 +47,11 @@ class MyView(View):
 
     def post(self, request, *args, **kwargs):
         return HttpResponse('Post')
+
+
+def polices(request):
+    return render(request, 'polices.html')
+
+
+def terms_of_use(request):
+    return render(request, 'terms-of-use.html')
