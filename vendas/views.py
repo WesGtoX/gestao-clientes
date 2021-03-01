@@ -4,7 +4,7 @@ from django.contrib.auth.decorators import login_required
 from django.views import View
 # from django.db.models import Min, Max, Avg, Count
 
-from vendas.models import Venda
+from vendas.models import Venda, ItemDoPedido
 
 
 @login_required
@@ -40,3 +40,30 @@ class DashboardView(View):
         # context['num_ped_nfe'] = Venda.objects.filter(nfe_emitida=True).aggregate(Count('id')).get('id__count')
 
         return render(request, 'vendas/dashboard.html', context)
+
+
+class NovoPedidoView(View):
+
+    def get(self, request):
+        data = {
+            'itens': ItemDoPedido.objects.all()
+        }
+        return render(request, 'vendas/novo-pedido.html', data)
+
+    def post(self, request):
+        data = {
+            'numero': request.POST.get('numero'),
+            'desconto': request.POST.get('numero'),
+            'venda': request.POST.get('venda_id')
+        }
+
+        if data.get('venda'):
+            venda = Venda.objects.get(id=data.get('venda'))
+        else:
+            venda = Venda.objects.create(numero=data.get('numero'), desconto=data.get('desconto'))
+
+        itens = venda.itemdopedido_set.all()
+        data['venda_obj'] = venda
+        data['itens'] = itens
+
+        return render(request, 'vendas/novo-pedido.html', data)
