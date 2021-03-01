@@ -5,6 +5,7 @@ from django.views import View
 # from django.db.models import Min, Max, Avg, Count
 
 from vendas.models import Venda, ItemDoPedido
+from vendas.forms import ItemPedidoForm
 
 
 @login_required
@@ -42,16 +43,22 @@ class DashboardView(View):
         return render(request, 'vendas/dashboard.html', context)
 
 
+class ListaVendasView(View):
+
+    def get(self, request):
+        vendas = Venda.objects.all()
+        return render(request, 'vendas/lista-vendas.html', {'vendas': vendas})
+
+
 class NovoPedidoView(View):
 
     def get(self, request):
-        data = {
-            'itens': ItemDoPedido.objects.all()
-        }
+        data = {'itens': ItemDoPedido.objects.all()}
         return render(request, 'vendas/novo-pedido.html', data)
 
     def post(self, request):
         data = {
+            'form_item': ItemPedidoForm(),
             'numero': request.POST.get('numero'),
             'desconto': request.POST.get('numero'),
             'venda': request.POST.get('venda_id')
@@ -59,11 +66,40 @@ class NovoPedidoView(View):
 
         if data.get('venda'):
             venda = Venda.objects.get(id=data.get('venda'))
+            venda.desconto = data.get('desconto')
+            venda.numero = data.get('numero')
+            venda.save()
         else:
             venda = Venda.objects.create(numero=data.get('numero'), desconto=data.get('desconto'))
 
         itens = venda.itemdopedido_set.all()
         data['venda_obj'] = venda
         data['itens'] = itens
+
+        return render(request, 'vendas/novo-pedido.html', data)
+
+
+class NovoItemPedido(View):
+
+    def get(self, request, pk):
+        ...
+
+    def post(self, request, venda):
+        item = ItemDoPedido.objects.create(
+            produto_id=request.POST.get('produto_id'),
+            quantidade=request.POST.get('quantidade'),
+            desconto=request.POST.get('desconto'),
+            venda_id=venda
+        )
+
+        data = {
+            'item': item,
+            'form_item': ItemPedidoForm(),
+            'numero': item.venda.numero,
+            'desconto': item.venda.desconto,
+            'venda': item.venda.id,
+            'venda_obj': item.venda,
+            'itens': item.venda.itemdopedido_set.all()
+        }
 
         return render(request, 'vendas/novo-pedido.html', data)

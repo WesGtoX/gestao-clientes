@@ -3,24 +3,27 @@
 {% block main %}
     <h1>Novo Pedido</h1>
 
-    <form method="POST">
+    <form method="POST" action="{% url 'novo-pedido' %}">
         {% csrf_token %}
         <h2>Cabeçalho do Pedido: {{ venda_obj.numero }}</h2>
         <input type="text" name="numero" class="form-control" value="{{ numero }}">
-
         <label for="desconto">Desconto</label><br />
         <input type="text" name="desconto" id="desconto" value="{{ desconto }}" placeholder="Desconto" class="form-control">
-
         <input type="hidden" value="{{ venda_obj.id }}" name="venda_id">
-
         <br />
-
         <button type="submit" class="btn btn-main">Enviar</button>
     </form>
 {% endblock %}
 
 {% block extra %}
-    <h2>Listagem de Items</h2>
+    {% if venda_obj %}
+        <form method="POST" action="{% url 'novo-item-pedido' venda_obj.id %}">
+            {% csrf_token %}
+            {{ form_item }}
+            <button class="btn btn-main">Incluir</button>
+        </form>
+
+        <h2>Listagem de Items</h2>
         <table class="table">
             <thead>
                 <tr>
@@ -41,4 +44,5 @@
                 {% endfor %}
             </tbody>
         </table>
+    {% endif %}
 {% endblock %}
