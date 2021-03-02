@@ -1,5 +1,5 @@
 from django.http import HttpResponse
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 from django.views import View
 # from django.db.models import Min, Max, Avg, Count
@@ -60,12 +60,12 @@ class NovoPedidoView(View):
         data = {
             'form_item': ItemPedidoForm(),
             'numero': request.POST.get('numero'),
-            'desconto': request.POST.get('numero'),
-            'venda': request.POST.get('venda_id')
+            'desconto': request.POST.get('desconto').replace(',', '.'),
+            'venda_id': request.POST.get('venda_id')
         }
 
-        if data.get('venda'):
-            venda = Venda.objects.get(id=data.get('venda'))
+        if data.get('venda_id'):
+            venda = Venda.objects.get(id=data.get('venda_id'))
             venda.desconto = data.get('desconto')
             venda.numero = data.get('numero')
             venda.save()
@@ -73,7 +73,7 @@ class NovoPedidoView(View):
             venda = Venda.objects.create(numero=data.get('numero'), desconto=data.get('desconto'))
 
         itens = venda.itemdopedido_set.all()
-        data['venda_obj'] = venda
+        data['venda'] = venda
         data['itens'] = itens
 
         return render(request, 'vendas/novo-pedido.html', data)
@@ -97,9 +97,36 @@ class NovoItemPedido(View):
             'form_item': ItemPedidoForm(),
             'numero': item.venda.numero,
             'desconto': item.venda.desconto,
-            'venda': item.venda.id,
-            'venda_obj': item.venda,
+            'venda': item.venda,
             'itens': item.venda.itemdopedido_set.all()
         }
 
         return render(request, 'vendas/novo-pedido.html', data)
+
+
+class EditPedidoView(View):
+
+    def get(self, request, venda):
+        venda = Venda.objects.get(id=venda)
+
+        data = {
+            'form_item': ItemPedidoForm(),
+            'numero': venda.numero,
+            'desconto': venda.desconto,
+            'venda': venda,
+            'itens': venda.itemdopedido_set.all()
+        }
+
+        return render(request, 'vendas/novo-pedido.html', data)
+
+
+class DeletePedidoView(View):
+
+    def get(self, request, venda):
+        venda = Venda.objects.get(id=venda)
+        return render(request, 'vendas/delete-pedido-confirm.html', {'venda': venda})
+
+    def post(self, request, venda):
+        venda = Venda.objects.get(id=venda)
+        venda.delete()
+        return redirect('lista-vendas')  
