@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+{% load bootstrap %}
+
+{% block main %}
+    <div class="row">
+        <div class="col-12">
+            <h1>Editando item {{ item_pedido }}</h1>
+
+            <form method="POST">
+                {% csrf_token %}
+                {{ form|bootstrap }}
+                <br />
+                <button type="submit" class="btn btn-main">Atualizar</button>
+            </form>
+        </div>
+    </div>
+{% endblock %}
