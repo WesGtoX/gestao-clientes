@@ -5,7 +5,7 @@ from django.views import View
 # from django.db.models import Min, Max, Avg, Count
 
 from vendas.models import Venda, ItemDoPedido
-from vendas.forms import ItemPedidoForm
+from vendas.forms import ItemPedidoForm, ItemDoPedidoModelForm
 
 
 @login_required
@@ -120,6 +120,24 @@ class EditPedidoView(View):
         return render(request, 'vendas/novo-pedido.html', data)
 
 
+class EditItemPedidoView(View):
+
+    def get(self, request, item):
+        item_pedido = ItemDoPedido.objects.get(id=item)
+        form = ItemDoPedidoModelForm(instance=item_pedido)
+        return render(request, 'vendas/edit-itempedido.html', {'item_pedido': item_pedido, 'form': form})
+
+    def post(self, request, item):
+        item_pedido = ItemDoPedido.objects.get(id=item)
+
+        item_pedido.quantidade = request.POST.get('quantidade')
+        item_pedido.desconto = request.POST.get('desconto')
+        item_pedido.save()
+
+        venda_id = item_pedido.venda.id
+        return redirect('edit-pedido', venda=venda_id)
+
+
 class DeletePedidoView(View):
 
     def get(self, request, venda):
@@ -129,4 +147,17 @@ class DeletePedidoView(View):
     def post(self, request, venda):
         venda = Venda.objects.get(id=venda)
         venda.delete()
-        return redirect('lista-vendas')  
+        return redirect('lista-vendas')
+
+
+class DeleteItemPedidoView(View):
+
+    def get(self, request, item):
+        item_pedido = ItemDoPedido.objects.get(id=item)
+        return render(request, 'vendas/delete-itempedido-confirm.html', {'item_pedido': item_pedido})
+
+    def post(self, request, item):
+        item_pedido = ItemDoPedido.objects.get(id=item)
+        venda_id = item_pedido.venda.id
+        item_pedido.delete()
+        return redirect('edit-pedido', venda=venda_id)
