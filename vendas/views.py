@@ -85,7 +85,8 @@ class NovoItemPedido(View):
         ...
 
     def post(self, request, venda):
-        item = ItemDoPedido.objects.create(
+
+        item, item_exists = ItemDoPedido.objects.get_or_create(
             produto_id=request.POST.get('produto_id'),
             quantidade=request.POST.get('quantidade'),
             desconto=request.POST.get('desconto'),
@@ -100,6 +101,9 @@ class NovoItemPedido(View):
             'venda': item.venda,
             'itens': item.venda.itemdopedido_set.all()
         }
+
+        if item_exists:
+            data['mensagem'] = 'Item já incluido no peiddo, por favor edite o item.'
 
         return render(request, 'vendas/novo-pedido.html', data)
 

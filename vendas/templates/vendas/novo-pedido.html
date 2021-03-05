@@ -2,6 +2,10 @@
 {% load bootstrap %}
 
 {% block main %}
+    {% if mensagem %}
+        {{ mensagem }}
+    {% endif %}
+
     <div class="row">
         <div class="col-12">
             <h1>Novo Pedido</h1>
@@ -9,16 +13,18 @@
             <form method="POST" action="{% url 'novo-pedido' %}">
                 {% csrf_token %}
                 <h2>Cabeçalho do Pedido: {{ venda.numero }}</h2>
-
                 <input type="text" name="numero" class="form-control" value="{{ numero }}">
                 <label for="desconto">Desconto</label><br />
                 <input type="text" name="desconto" id="desconto" value="{{ desconto }}" placeholder="Desconto" class="form-control">
                 <input type="hidden" value="{{ venda.id }}" name="venda_id">
-
                 <br />
-
                 <button type="submit" class="btn btn-main">Enviar</button>
             </form>
+
+            <br />
+            <b>Total:</b> {{ venda.valor }}
+            <br />
+            <b>Desconto:</b> {{ venda.desconto }}
         </div>
     </div>
 {% endblock %}
