@@ -12,4 +12,6 @@ urlpatterns = [
     path('person_update/<int:pk>', views.PersonUpdate.as_view(), name='person_update_cbv'),  # UpdateView
     path('person_delete/<int:pk>', views.PersonDelete.as_view(), name='person_delete_cbv'),  # DeleteView
     path('person_create/', views.PersonCreate.as_view(), name='person_create_cbv'),  # CreateView
+    path('api/', views.api, name='api'),
+    path('apicbv/', views.APICBV, name='apicbv'),
 ]

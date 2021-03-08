@@ -1,4 +1,5 @@
-from django.http import HttpResponse
+from django.forms import model_to_dict
+from django.http import HttpResponse, JsonResponse
 from django.urls import reverse_lazy
 from django.utils import timezone
 
@@ -6,9 +7,11 @@ from django.shortcuts import render, redirect, get_object_or_404
 
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
+from django.views import View
 from django.views.generic import list, detail, edit
 
 from clientes.models import Person
+from produtos.models import Produto
 from vendas.models import Venda
 from clientes.forms import PersonForm
 
@@ -120,3 +123,45 @@ class PersonDelete(PermissionRequiredMixin, edit.DeleteView):
 
     def get_success_url(self):
         return reverse_lazy('person_list_cbv')
+
+
+def api(request):
+    # data = {'nome': 'Wesley', 'idade': 26, 'salario': 150000}
+    # mensagem = {'mensagem': 'xyz'}
+    # return JsonResponse(mensagem, status=404)
+    # return JsonResponse(data, status=200)
+
+    # produto = Produto.objects.last()
+    # data = {'descricao': produto.descricao, 'preco': produto.preco}
+    # data = model_to_dict(produto)
+
+    data = []
+
+    produtos = Produto.objects.all()
+
+    for produto in produtos:
+        data.append(model_to_dict(produto))
+
+    return JsonResponse(data, status=200, safe=False)
+
+
+class APICBV(View):
+
+    def get(self, request):
+        # data = {'nome': 'Wesley'}
+
+        # produto = Produto.objects.last()
+        # data = model_to_dict(produto)
+
+        data = []
+
+        produtos = Produto.objects.all()
+
+        for produto in produtos:
+            data.append(model_to_dict(produto))
+
+        return JsonResponse(data)
+
+    def post(self):
+        # Forbiden csrf_token
+        pass
