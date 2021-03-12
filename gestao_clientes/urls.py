@@ -18,6 +18,9 @@ urlpatterns = [
     path('produtos/', include(produtos_urls)),
     path('vendas/', include(vendas_urls)),
     path('login/', auth_views.LoginView.as_view(), name='login'),
+    # path('grappelli/', include('grappelli.urls')),  grappelli URLS
+    # path('jet/', include('jet.urls', 'jet')),  # Django JET URLS
+    # path('jet/dashboard/', include('jet.dashboard.urls', 'jet-dashboard')),  # Django JET dashboard URLS
     path('admin/', admin.site.urls),
     path('accounts/', include('allauth.urls')),
     path('', include('django.contrib.auth.urls')),

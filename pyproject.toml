@@ -28,6 +28,11 @@ django-extensions = "^3.1.1"
 django-debug-toolbar = "^3.2"
 django-allauth = "^0.44.0"
 black = "^20.8b1"
+django-grappelli = "^2.14.3"
+django-suit = "0.2.26"
+django-jet = "^1.0.8"
+google-api-python-client = "1.4.1"
+feedparser = "^6.0.2"
 
 [tool.poetry.dev-dependencies]
 mypy = "^0.790"
