@@ -71,3 +71,11 @@ class Person(models.Model):
         permissions = (
             ('deletar_clientes', 'Deletar clientes'),
         )
+
+
+class TabelaExistente(models.Model):
+    nome = models.CharField(max_length=100)
+    salario = models.DecimalField(max_digits=7, decimal_places=2)
+
+    class Meta:
+        db_table = 'MinhaTabela'

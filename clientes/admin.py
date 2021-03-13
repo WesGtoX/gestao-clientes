@@ -1,5 +1,5 @@
 from django.contrib import admin
-from clientes.models import Person, Documento
+from clientes.models import Person, Documento, TabelaExistente
 
 
 @admin.register(Person)
@@ -32,3 +32,10 @@ class DocumentoAdmin(admin.ModelAdmin):
 
     list_display = ('num_doc',)
     search_fields = ['id', 'num_doc']
+
+
+@admin.register(TabelaExistente)
+class TabelaExistenteAdmin(admin.ModelAdmin):
+
+    list_display = ('nome', 'salario')
+    search_fields = ['nome', 'salario']
