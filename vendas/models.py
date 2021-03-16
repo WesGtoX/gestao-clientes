@@ -58,6 +58,9 @@ class ItemDoPedido(models.Model):
     def __str__(self):
         return f'{self.venda.numero} - {self.produto.descricao}'
 
+    class Meta:
+        verbose_name = 'Item do Pedido'
+        verbose_name_plural = 'Itens do Pedido'
 
 @receiver(post_save, sender=ItemDoPedido)
 def update_vendas_total_item(sender, instance, **kwargs):
