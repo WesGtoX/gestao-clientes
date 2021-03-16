@@ -6,7 +6,7 @@ from clientes.models import Person, Documento, TabelaExistente
 class PersonAdmin(admin.ModelAdmin):
 
     fieldsets = (
-        ('Dados Pessoais', {'fields': ('first_name', 'last_name', 'age', 'doc')}),
+        ('Dados Pessoais', {'fields': ('first_name', 'last_name', 'age', 'doc', 'telefone')}),
         ('Dados Complementares', {
             'classes': ('collapse',),
             'fields': ('salary', 'bio', 'photo')

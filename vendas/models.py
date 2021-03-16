@@ -61,6 +61,10 @@ class ItemDoPedido(models.Model):
     class Meta:
         verbose_name = 'Item do Pedido'
         verbose_name_plural = 'Itens do Pedido'
+        unique_together = (
+            ('venda', 'produto'),
+        )
+
 
 @receiver(post_save, sender=ItemDoPedido)
 def update_vendas_total_item(sender, instance, **kwargs):
