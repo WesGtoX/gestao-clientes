@@ -33,6 +33,7 @@ django-suit = "0.2.26"
 django-jet = "^1.0.8"
 google-api-python-client = "1.4.1"
 feedparser = "^6.0.2"
+jet-django = "^1.0.9"
 
 [tool.poetry.dev-dependencies]
 mypy = "^0.790"

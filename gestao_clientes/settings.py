@@ -29,6 +29,7 @@ INSTALLED_APPS = [
     # 'suit',
     # 'jet.dashboard',
     # 'jet',
+    'jet_django',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.sites',
@@ -171,6 +172,12 @@ EMAIL_USE_TLS = config('EMAIL_USE_TLS', default=False, cast=bool)
 DEFAULT_FROM_EMAIL = f'{EMAIL_FROM_NAME} <{EMAIL_HOST_USER}>'
 SERVER_EMAIL = EMAIL_HOST_USER
 EMAIL_SUBJECT_PREFIX = '[Gestão Clientes] '
+
+
+# Jet
+
+JET_PROJECT = config('JET_PROJECT', default='')
+JET_TOKEN = config('JET_TOKEN', default='')
 
 
 # AWS
