@@ -33,5 +33,9 @@
         </tbody>
     </table>
 
+    {% for v in res %}
+    <p>{{ v }}</p>
+    {% endfor %}
+
     <a href="{% url 'novo-pedido' %}">Nova venda</a>
 {% endblock %}

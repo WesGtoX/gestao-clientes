@@ -57,6 +57,9 @@ class Venda(models.Model):
     #
     #     return (total - self.desconto) - self.impostos
 
+    def get_raw_vendas(self):
+        return Venda.objects.raw('SELECT * FROM vendas_venda WHERE id = %s', [2])
+
     def __str__(self):
         return self.numero
 

@@ -48,7 +48,11 @@ class ListaVendasView(View):
     def get(self, request):
         vendas = Venda.objects.all()
         count_vendas = vendas.count()
-        return render(request, 'vendas/lista-vendas.html', {'vendas': vendas, 'count_vendas': count_vendas})
+
+        v = Venda.objects.last()
+        res = v.get_raw_vendas()
+        context = {'vendas': vendas, 'count_vendas': count_vendas, 'res': res}
+        return render(request, 'vendas/lista-vendas.html', context)
 
 
 class NovoPedidoView(View):
@@ -58,26 +62,26 @@ class NovoPedidoView(View):
         return render(request, 'vendas/novo-pedido.html', data)
 
     def post(self, request):
-        data = {
+        context = {
             'form_item': ItemPedidoForm(),
             'numero': request.POST.get('numero'),
             'desconto': request.POST.get('desconto').replace(',', '.'),
             'venda_id': request.POST.get('venda_id')
         }
 
-        if data.get('venda_id'):
-            venda = Venda.objects.get(id=data.get('venda_id'))
-            venda.desconto = data.get('desconto')
-            venda.numero = data.get('numero')
+        if context.get('venda_id'):
+            venda = Venda.objects.get(id=context.get('venda_id'))
+            venda.desconto = context.get('desconto')
+            venda.numero = context.get('numero')
             venda.save()
         else:
-            venda = Venda.objects.create(numero=data.get('numero'), desconto=data.get('desconto'))
+            venda = Venda.objects.create(numero=context.get('numero'), desconto=context.get('desconto'))
 
         itens = venda.itemdopedido_set.all()
-        data['venda'] = venda
-        data['itens'] = itens
+        context['venda'] = venda
+        context['itens'] = itens
 
-        return render(request, 'vendas/novo-pedido.html', data)
+        return render(request, 'vendas/novo-pedido.html', context)
 
 
 class NovoItemPedido(View):
@@ -94,7 +98,7 @@ class NovoItemPedido(View):
             venda_id=venda
         )
 
-        data = {
+        context = {
             'item': item,
             'form_item': ItemPedidoForm(),
             'numero': item.venda.numero,
@@ -104,9 +108,9 @@ class NovoItemPedido(View):
         }
 
         if item_exists:
-            data['mensagem'] = 'Item já incluido no peiddo, por favor edite o item.'
+            context['mensagem'] = 'Item já incluido no peiddo, por favor edite o item.'
 
-        return render(request, 'vendas/novo-pedido.html', data)
+        return render(request, 'vendas/novo-pedido.html', context)
 
 
 class EditPedidoView(View):
@@ -114,7 +118,7 @@ class EditPedidoView(View):
     def get(self, request, venda):
         venda = Venda.objects.get(id=venda)
 
-        data = {
+        context = {
             'form_item': ItemPedidoForm(),
             'numero': venda.numero,
             'desconto': venda.desconto,
@@ -122,7 +126,7 @@ class EditPedidoView(View):
             'itens': venda.itemdopedido_set.all()
         }
 
-        return render(request, 'vendas/novo-pedido.html', data)
+        return render(request, 'vendas/novo-pedido.html', context)
 
 
 class EditItemPedidoView(View):
