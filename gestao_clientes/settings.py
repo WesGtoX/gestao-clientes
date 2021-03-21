@@ -194,3 +194,57 @@ JET_TOKEN = config('JET_TOKEN', default='')
 # STATIC_URL = 'https://%s/%s/' % (AWS_S3_CUSTOM_DOMAIN, AWS_LOCATION)
 # STATICFILES_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
 # DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
+
+
+# Logging
+
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'formatters': {
+        'simple': {
+            'format': '%(levelname)s - [%(name)s.%(funcName)s:%(lineno)d]: %(message)s',
+        },
+        'verbose': {
+            'format': '[%(asctime)s] - %(levelname)s - [%(name)s.%(funcName)s:%(lineno)d]: %(message)s',
+        },
+    },
+    'handlers': {
+        'file': {
+            'level': config('DJANGO_HANDLERS_LEVEL', 'DEBUG'),
+            'class': 'logging.FileHandler',
+            'filename': 'debug.log',
+        },
+        'console': {
+            'level': config('DJANGO_HANDLERS_LEVEL', 'DEBUG'),
+            'class': 'logging.StreamHandler',
+            'formatter': 'simple',
+        },
+        'mail_admins': {
+            'level': config('DJANGO_HANDLERS_LEVEL', 'ERROR'),
+            'class': 'django.utils.log.AdminEmailHandler',
+        },
+    },
+    'loggers': {
+        'django': {
+            'handlers': ['console'],
+            'level': config('DJANGO_LOG_LEVEL', 'WARNING'),
+            'propagate': True,
+        },
+        'django.db': {
+            'handlers': ['console'],
+            'level': config('DJANGO_LOG_LEVEL', 'DEBUG'),
+            'propagate': False,
+        },
+        'django.server': {
+            'handlers': ['console', 'mail_admins'],
+            'level': config('DJANGO_LOG_LEVEL', 'DEBUG'),
+            'propagate': False,
+        },
+        'django.request': {
+            'handlers': ['console'],
+            'level': config('DJANGO_LOG_LEVEL', 'DEBUG'),
+            'propagate': False,
+        },
+    },
+}

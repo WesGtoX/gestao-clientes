@@ -1,3 +1,5 @@
+import logging
+
 from django.http import HttpResponse
 from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
@@ -6,6 +8,8 @@ from django.views import View
 
 from vendas.models import Venda, ItemDoPedido
 from vendas.forms import ItemPedidoForm, ItemDoPedidoModelForm
+
+logger = logging.getLogger('django')
 
 
 @login_required
@@ -46,6 +50,8 @@ class DashboardView(View):
 class ListaVendasView(View):
 
     def get(self, request):
+        logger.debug('Acessaram a listagem de vendas.')
+
         vendas = Venda.objects.all()
         count_vendas = vendas.count()
 
