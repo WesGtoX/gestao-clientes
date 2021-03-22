@@ -4,6 +4,15 @@
 
 {% block main %}
     <div class="row">
+        <form action="" class="form-inline mx-auto">
+            <div class="form-group mx-sm-3 mb-2">
+                <input type="text" id="pesquisa" name="pesquisa" class="form-control" placeholder="Digite sua busca">
+            </div>
+            <button class="btn btn-primary mb-2">Pesquisar</button>
+        </form>
+    </div>
+
+    <div class="row">
         <div class="col"></div>
         <div class="col-6">
             <h3>Listagem de clientes</h3>
@@ -15,8 +24,8 @@
                             <i class="fa fa-trash" aria-hidden="true"></i>
                         </a>
                     </li>
-                    {% empty %}
-                        <li>Desculpe, não existem clientes cadastrados</li>
+                {% empty %}
+                    <li>Desculpe, não existem clientes cadastrados</li>
                 {% endfor %}
             </ul>
             <br>

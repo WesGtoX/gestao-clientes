@@ -1,3 +1,4 @@
+from django.db.models import Q
 from django.forms import model_to_dict
 from django.http import HttpResponse, JsonResponse
 from django.urls import reverse_lazy
@@ -18,7 +19,10 @@ from clientes.forms import PersonForm
 
 @login_required
 def persons_list(request):
-    persons = Person.objects.all()
+    query = Q(first_name__icontains=request.GET.get('pesquisa', ''))
+    query.add(Q(last_name__icontains=request.GET.get('pesquisa', '')), Q.OR)
+    persons = Person.objects.filter(query)
+
     context = {'persons': persons}
     return render(request, 'person.html', context)
 
