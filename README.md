@@ -11,11 +11,11 @@
 </p>
 
 <p align="center">
-  <img alt="GitHub top language" src="https://img.shields.io/github/languages/top/wesgtox/gestao_clientes?style=plastic" />
-  <img alt="GitHub language count" src="https://img.shields.io/github/languages/count/wesgtox/gestao_clientes?style=plastic" />
-  <img alt="GitHub last commit" src="https://img.shields.io/github/last-commit/wesgtox/gestao_clientes?style=plastic" />
-  <img alt="GitHub issues" src="https://img.shields.io/github/issues/wesgtox/gestao_clientes?style=plastic" />
-  <img alt="License" src="https://img.shields.io/github/license/wesgtox/gestao_clientes?style=plastic" />
+  <img alt="GitHub top language" src="https://img.shields.io/github/languages/top/wesgtox/gestao-clientes?style=plastic" />
+  <img alt="GitHub language count" src="https://img.shields.io/github/languages/count/wesgtox/gestao-clientes?style=plastic" />
+  <img alt="GitHub last commit" src="https://img.shields.io/github/last-commit/wesgtox/gestao-clientes?style=plastic" />
+  <img alt="GitHub issues" src="https://img.shields.io/github/issues/wesgtox/gestao-clientes?style=plastic" />
+  <img alt="License" src="https://img.shields.io/github/license/wesgtox/gestao-clientes?style=plastic" />
 </p>
 
 Client management project created in Django Framework.
@@ -134,7 +134,7 @@ This project was developed with the following technologies:
 
 1. Clone the repository:
 ```bash
-git clone https://github.com/wesgtox/gestao_clientes.git
+git clone https://github.com/wesgtox/gestao-clientes.git
 ```
 2. Install the dependencies:
 ```bash
